@@ -1,0 +1,3 @@
+# 1.有些模板代码是重复的，因此可以单独抽取出来，以后哪里需要，就直接使用include进来就可以了
+# 2.如果想要在include子模版的时候，传递一些参数，可以使用with xxx=xxxx的形式,示例代码如下:
+# {% include 'header.html' with 'username'='tomtao' %}
