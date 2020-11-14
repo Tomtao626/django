@@ -1,0 +1,51 @@
+1.python虚拟环境
+	--virtualenv
+安装 
+	-- pip/pip3 install virtualenv (win)
+创建
+	-- virtualenv [virtualenv_name]
+创建虚拟环境的python版本取决于你的python所配置的环境变量
+使用
+	-- 进入虚拟环境所在目录的Scripts目录下 输入 “activate”  可以看到文件路径左侧 出现（virtualenv_name） 表示你已进入虚拟环境下
+
+2.python虚拟环境管理工具
+	--virtualenvwrapper
+安装
+	--pip3 install virtualenvwrapper
+创建
+	--mkvirtualenv [virtualenv_name]
+使用
+	-- 在任意目录下 输入“workon [virtualenv_name]” 可以看到文件路径左侧 出现（virtualenv_name） 表示你已进入虚拟环境下
+查看所有创建的的虚拟环境列表
+	--lsvirtualenv
+删除虚拟环境
+	--rmvirtualenv [virtualenv_name]
+进入虚拟环境所在的目录
+	--cdvirtualenv
+退出虚拟环境
+	--deactivate
+
+3.Django使用
+准备
+	--通过 workon [virtualenv_name] 进入虚拟环境
+安装
+	--pip/pip3 install django
+创建
+	--django-admin startproject [project_name]
+启动
+	进入创建的所在项目下，输入 “python manage.py runserver”
+验证项目是否创建并启动成功
+	在浏览器输入 127.0.0.1：port（默认8000），即可进入django:web
+
+4.项目规范
+	创建一个app
+		--进入项目目录下，输入“python manage.py startapp [app_name]”
+	包含内容
+		migrations文件夹
+		_init_.py
+		admin.py
+		apps.py
+		models.py
+		tests.py
+		views.py
+	

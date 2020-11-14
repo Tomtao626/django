@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--    <ul>-->
+<!--        {% for book in books reversed %}-->
+<!--            <li>{{ book }}</li>-->
+<!--        {% endfor %}-->
+<!--    </ul>-->
+    <ul>
+        {% for key in person.keys %}  <!-- 遍历获取字典的key -->
+            <li>{{ key }}</li>
+        {% endfor %}
+    </ul>
+    <ul>
+        {% for val in person.values %}  <!-- 遍历获取字典的value -->
+            <li>{{ val }}</li>
+        {% endfor %}
+    </ul>
+    <ul>
+        {% for key,value in person.items %}  <!-- 遍历获取元组的key,value -->
+            <li>{{ key }}/{{ value }}</li>
+        {% endfor %}
+    </ul>
+    <table>
+        <thead>
+            <tr>
+                <td>序号1</td>
+                <td>序号2</td>
+                <td>书名</td>
+                <td>作者</td>
+                <td>价格</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                {% if forloop.first %}
+                    <tr style="background: #9c9cff;">
+                {% elif forloop.last %}
+                    <tr style="background: pink;">
+                {% else %}
+                    <tr style="background: yellow;">
+                {% endif %}
+                    <td>{{ forloop.counter }}</td>  <!-- counter 代表下标从1开始  counter0 代表下标从0开始 -->
+                    <td>{{ forloop.revcounter }}</td>  <!-- 下标反向 -->
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.price }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment }}</li>
+        {% empty %}
+            <li>没有任何评论</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
