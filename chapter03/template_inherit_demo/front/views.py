@@ -5,12 +5,15 @@ from django.shortcuts import render
 from django.shortcuts import render
 
 def index(request):
-    return render(request, 'index.html')
+    context = {
+        'username': 'tomtao'
+    }
+    return render(request, 'index.html', context=context)
 
 
 def company(request):
-    pass
+    return render(request, 'company.html')
 
 
 def school(request):
-    pass
+    return render(request, 'school.html')

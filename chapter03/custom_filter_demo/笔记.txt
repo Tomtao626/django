@@ -4,10 +4,10 @@
 # 2.在这个“templatetags”包下面，创建一个python文件用来存储过滤器
 # 3.在新建的python文件中，定义过滤器（也就是函数），这个函数的第一个参数永远是
 # 被过滤的那个值，并且如果在使用过滤器的时候传递参数，那么还可以定义另外一个参数，但是过滤器最多只能有两个参数。
-# 4.在写完过滤器（函数）后，要使用django.template.Library.filter进行注册
+# 4.在写完过滤器（函数）后，要使用django.templates.Library.filter进行注册
 # 5.还要把这个过滤器所在的app添加中settings.INSTALLED_APPS中，不然Django也找不到这个过滤器
 # 6.在模板中使用load标签加载过滤器所在的python包
-# 8.django.template.Library.filter还可以当作装饰器来使用，如果filter函数没有传递参数，那么将会使用这儿函数的名字
+# 8.django.templates.Library.filter还可以当作装饰器来使用，如果filter函数没有传递参数，那么将会使用这儿函数的名字
 # 来作为过滤器的名字，当然如果不想使用函数的名字来作为过滤器的名字，也可以传递一个name参数，实例代码如下：
 #     @register.filter('my_greet')
 #     def greet(value, word):
