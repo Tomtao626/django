@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+from django.utils.timezone import now
+
 
 class Article(models.Model):
     """article"""
@@ -21,3 +23,10 @@ class Article(models.Model):
 class Person(models.Model):
     email = models.EmailField()
     signature = models.TextField(default="")
+
+
+class Author(models.Model):
+    username = models.CharField(max_length=100, null=True)
+    age = models.IntegerField(null=True, db_column="author_age", default=0)
+    create_time = models.DateTimeField(default=now)
+    tel = models.CharField(max_length=11, null=True, unique=True)

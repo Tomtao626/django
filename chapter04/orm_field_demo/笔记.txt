@@ -60,3 +60,25 @@ UUIDField：
 
 URLField：
 类似于CharField，只不过只能用来存储url格式的字符串。并且默认的max_length是200。
+
+Field的常用参数：
+null：
+如果设置为True，Django将会在映射表的时候指定是否为空。默认是为False。在使用字符串相关的Field（CharField/TextField）的时候，官方推荐尽量不要使用这个参数，也就是保持默认值False。因为Django在处理字符串相关的Field的时候，即使这个Field的null=False，如果你没有给这个Field传递任何值，那么Django也会使用一个空的字符串""来作为默认值存储进去。因此如果再使用null=True，Django会产生两种空值的情形（NULL或者空字符串）。如果想要在表单验证的时候允许这个字符串为空，那么建议使用blank=True。如果你的Field是BooleanField，那么对应的可空的字段则为NullBooleanField。
+
+blank：
+标识这个字段在表单验证的时候是否可以为空。默认是False。
+这个和null是有区别的，null是一个纯数据库级别的。而blank是表单验证级别的。
+
+db_column：
+这个字段在数据库中的名字。如果没有设置这个参数，那么将会使用模型中属性的名字。
+
+default：
+默认值。可以为一个值，或者是一个函数，但是不支持lambda表达式。并且不支持列表/字典/集合等可变的数据结构。
+
+primary_key：
+是否为主键。默认是False。
+
+unique：
+在表中这个字段的值是否唯一。一般是设置手机号码/邮箱等。
+
+更多Field参数请参考官方文档：https://docs.djangoproject.com/zh-hans/2.0/ref/models/fields/

@@ -19,5 +19,7 @@ from article import views
 
 urlpatterns = [
     path('', views.index),
-    path('email/', views.email_view)
+    path('email/', views.email_view),
+    path('author/', views.null_text_field_view),
+    path('unique_test', views.unique_view)
 ]

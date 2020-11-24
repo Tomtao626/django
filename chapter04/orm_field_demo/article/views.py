@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Article, Person
+from .models import Article, Person, Author
 from django.utils.timezone import now, localtime
 
 # Create your views here.
@@ -27,4 +27,18 @@ def email_view(request):
     person = Person()
     person.email = "aaaaaa"
     person.save()
+    return HttpResponse("success!")
+
+
+def null_text_field_view(request):
+    author = Author()
+    author.username = "k8s"
+    author.save()
+    return HttpResponse("success!")
+
+def unique_view(request):
+    author = Author()
+    author.username = "aaaa"
+    author.tel = "111"
+    author.save()
     return HttpResponse("success!")
