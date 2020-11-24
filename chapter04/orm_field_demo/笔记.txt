@@ -82,3 +82,29 @@ unique：
 在表中这个字段的值是否唯一。一般是设置手机号码/邮箱等。
 
 更多Field参数请参考官方文档：https://docs.djangoproject.com/zh-hans/2.0/ref/models/fields/
+
+对于一些模型级别的配置。我们可以在模型中定义一个类，叫做Meta。然后在这个类中添加一些类属性来控制模型的作用。比如我们想要在数据库映射的时候使用自己指定的表名，而不是使用模型的名称。那么我们可以在Meta类中添加一个db_table的属性。示例代码如下：
+
+class Book(models.Model):
+    name = models.CharField(max_length=20,null=False)
+    desc = models.CharField(max_length=100,name='description',db_column="description1")
+
+    class Meta:
+        db_table = 'book_model'
+以下将对Meta类中的一些常用配置进行解释。
+
+db_table：
+这个模型映射到数据库中的表名。如果没有指定这个参数，那么在映射的时候将会使用模型名来作为默认的表名。
+
+ordering：
+设置在提取数据的排序方式。后面章节会讲到如何查找数据。比如我想在查找数据的时候根据添加的时间排序，那么示例代码如下：
+
+class Book(models.Model):
+    name = models.CharField(max_length=20,null=False)
+    desc = models.CharField(max_length=100,name='description',db_column="description1")
+    pub_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'book_model'
+        ordering = ['pub_date']
+更多的配置后面会慢慢介绍到。 官方文档：https://docs.djangoproject.com/en/2.0/ref/models/options/

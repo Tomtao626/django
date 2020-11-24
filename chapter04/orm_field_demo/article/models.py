@@ -28,5 +28,14 @@ class Person(models.Model):
 class Author(models.Model):
     username = models.CharField(max_length=100, null=True)
     age = models.IntegerField(null=True, db_column="author_age", default=0)
-    create_time = models.DateTimeField(default=now)
+    create_time = models.DateTimeField(auto_now=True)
     tel = models.CharField(max_length=11, null=True, unique=True)
+
+    def __str__(self):
+        return f"<(Author id:{self.id},create_time:{self.create_time})>"
+
+    class Meta:
+        db_table = "author"
+        ordering = ['-create_time', 'id']
+
+

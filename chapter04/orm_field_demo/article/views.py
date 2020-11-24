@@ -42,3 +42,9 @@ def unique_view(request):
     author.tel = "111"
     author.save()
     return HttpResponse("success!")
+
+def order_view(request):
+    authors = Author.objects.all()
+    for author in authors:
+        print(author)
+    return HttpResponse("success!")
