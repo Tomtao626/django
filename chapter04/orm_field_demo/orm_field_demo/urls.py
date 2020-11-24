@@ -19,4 +19,5 @@ from article import views
 
 urlpatterns = [
     path('', views.index),
+    path('email/', views.email_view)
 ]

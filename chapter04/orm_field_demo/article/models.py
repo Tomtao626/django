@@ -15,3 +15,9 @@ class Article(models.Model):
     # auto_now_add 是在第一次添加数据进去的时候会自动获取当前的时间
     # auto_now 每次这个对象调用save方式时，才会更新获取当前时间
     create_time = models.DateTimeField(auto_now=True)
+    signature = models.TextField()
+
+
+class Person(models.Model):
+    email = models.EmailField()
+    signature = models.TextField(default="")
