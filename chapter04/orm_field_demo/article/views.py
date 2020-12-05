@@ -25,7 +25,7 @@ def index (request):
 
 def email_view(request):
     person = Person()
-    person.email = "aaaaaa"
+    person.email = "bbb"
     person.save()
     return HttpResponse("success!")
 
