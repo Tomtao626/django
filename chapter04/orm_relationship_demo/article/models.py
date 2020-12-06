@@ -12,9 +12,13 @@ def default_category():
 class Article(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    category = models.ForeignKey("category", on_delete=models.DO_NOTHING, null=True)
+    category = models.ForeignKey("category", on_delete=models.DO_NOTHING, null=False,
+                                 related_name='articles')
     author = models.ForeignKey("frontuser.FrontUser",
                                on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return f"<Article:({self.id},{self.title})>"
 
 
 class Comment(models.Model):
