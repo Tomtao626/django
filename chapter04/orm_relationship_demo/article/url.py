@@ -4,3 +4,12 @@
 # @Email : tp320670258@gmail.com
 # @File : url.py
 # @Project : orm_relationship_demo
+
+from django.urls import path
+from . import views
+
+app_name = 'article'
+
+urlpatterns = [
+    path('', views.index, name='index')
+]
