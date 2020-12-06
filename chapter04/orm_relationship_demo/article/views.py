@@ -15,3 +15,9 @@ def index(request):
     article = Article.objects.first()
     print(article.category.name)
     return HttpResponse("success")
+
+
+def delete_view(request):
+    category = Category.objects.get(pk=6)
+    category.delete()
+    return HttpResponse("delete success")

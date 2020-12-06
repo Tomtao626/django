@@ -6,11 +6,13 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
+def default_category():
+    return Category.objects.get(pk=4)
 
 class Article(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    category = models.ForeignKey("category", on_delete=models.CASCADE)
+    category = models.ForeignKey("category", on_delete=models.DO_NOTHING, null=True)
     author = models.ForeignKey("frontuser.FrontUser",
                                on_delete=models.CASCADE, null=True)
 
