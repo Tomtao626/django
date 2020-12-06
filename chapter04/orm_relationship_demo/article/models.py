@@ -6,13 +6,15 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
+
 def default_category():
     return Category.objects.get(pk=4)
+
 
 class Article(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    category = models.ForeignKey("category", on_delete=models.DO_NOTHING, null=False,
+    category = models.ForeignKey("Category", on_delete=models.DO_NOTHING, null=True,
                                  related_name='articles')
     author = models.ForeignKey("frontuser.FrontUser",
                                on_delete=models.CASCADE, null=True)
@@ -24,3 +26,8 @@ class Article(models.Model):
 class Comment(models.Model):
     content = models.TextField()
     origin_comment = models.ForeignKey("self", on_delete=models.CASCADE)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=100)
+    articles = models.ManyToManyField("Article", related_name="tags")
