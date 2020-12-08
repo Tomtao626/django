@@ -34,7 +34,27 @@ def index(request):
     article_ = Article.objects.filter(title__iexact='test1')
     print(article_.query)
     #  sql语句
-    # SELECT `article`.`id`, `article`.`title`, `article`.`content` FROM `article` WHERE `article`.`title` LIKE test1
+    #  SELECT `article`.`id`, `article`.`title`, `article`.`content` FROM `article` WHERE `article`.`title` LIKE test1
     print(article_)
-    # <QuerySet [<Article: <Article:id:1,title:test1,content:test1111>>]>
+    #  <QuerySet [<Article: <Article:id:1,title:test1,content:test1111>>]>
+    return HttpResponse("successfully")
+
+
+def index1(request):
+    result = Article.objects.filter(title__contains='test')
+    print(result.query)
+    #  对应sql语句
+    #  SELECT `article`.`id`, `article`.`title`, `article`.`content` FROM `article` WHERE `article`.`title` LIKE BINARY %test%
+    print(result)
+    #  <QuerySet [<Article: <Article:id:1,title:test1,content:test1111>>, <Article: <Article:id:2,title:test2,content:test2222>>]>
+    return HttpResponse("successfully")
+
+
+def index2(request):
+    result = Article.objects.filter(title__icontains='test')
+    print(result.query)
+    #  对应sql语句
+    #  SELECT `article`.`id`, `article`.`title`, `article`.`content` FROM `article` WHERE `article`.`title` LIKE %test%
+    print(result)
+    #  <QuerySet [<Article: <Article:id:1,title:test1,content:test1111>>, <Article: <Article:id:2,title:test2,content:test2222>>]>
     return HttpResponse("successfully")
