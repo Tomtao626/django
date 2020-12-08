@@ -1,0 +1,18 @@
+查询条件
+exact：
+使用精确的=进行查找。如果提供的是一个None，那么在SQL层面就是被解释为NULL。示例代码如下：
+
+article = Article.objects.get(id__exact=14)
+article = Article.objects.get(id__exact=None)
+以上的两个查找在翻译为SQL语句为如下：
+
+select ... from article where id=14;
+select ... from article where id IS NULL;
+iexact：
+使用like进行查找。示例代码如下：
+
+article = Article.objects.filter(title__iexact='hello world')
+那么以上的查询就等价于以下的SQL语句：
+
+select ... from article where title like 'hello world';
+注意上面这个sql语句，因为在MySQL中，没有一个叫做ilike的。所以exact和iexact的区别实际上就是LIKE和=的区别，在大部分collation=utf8_general_ci情况下都是一样的（collation是用来对字符串比较的）。
