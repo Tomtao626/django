@@ -21,5 +21,6 @@ from front import views
 urlpatterns = [
     path('', views.index),
     path('1/', views.index1),
-    path('2/', views.index2)
+    path('2/', views.index2),
+    path('3/', views.index3)
 ]
