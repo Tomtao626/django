@@ -14,6 +14,7 @@ class Article(models.Model):
     content = models.TextField()
     category = models.ForeignKey("Category", null=True, on_delete=models.CASCADE,
                                  related_query_name='articles')
+    create_time = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return f"<Article:id:{self.id},title:{self.title},content:{self.content}>"

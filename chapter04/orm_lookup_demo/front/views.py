@@ -1,6 +1,9 @@
+from datetime import datetime, time
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Article, Category
+from django.utils.timezone import make_aware
 
 
 # Create your views here.
@@ -70,7 +73,7 @@ def index3(request):
     # 默认使用主键 id来进行查找
     """
         因为查询的字段是表的主键，故是可以查询的 article__in等价于 article__id__in
-        如果要判断相关联表的字段，那么也是通过'__'来连接，并且在做反向引用的时候，不需要写'models_set'，
+        如果要判断相关联表的字段，那么也是通过'__'来连接，并且在做关联查询的时候，不需要写'models_set'，
         直接使用模型的名字的小写化就可以了，比如通过分类去查找相应的文章，那么也可以通过'article__id__in'来连接。
         而不用写成'article_set__id__in'的形式,当然如果不想使用默认的形式，则可以使设置参数relative_query_name时，
         指定反向引用的名字
@@ -103,3 +106,71 @@ def index3(request):
     # 反向引用是将模型名字小写化 然后再加上'_set' 如 'article_set'
     # 二者都可以通过relative_query_name来指定自己的方式，而不使用默认的方式
     return HttpResponse("success!")
+
+
+def index4(request):
+    """
+    查找id>2的所有文章
+    gt ----> greater than 大于
+    gte ---> greater than equal  大于等于
+    lt ----> lower than  小于
+    lte ---> lower than equal  小于等于
+    :param request:
+    :return:
+    """
+    articles = Article.objects.filter(id__gt=2)
+    for article in articles:
+        print(article)
+    print(articles.query)
+    return HttpResponse("successs")
+
+
+def index5(request):
+    # __startswith 以什么开头 区分大小写  __istartswith 以什么开头 不区分大小写
+    # articles = Article.objects.filter(title__startswith='hello')
+    # print(articles.query)
+    # print(articles)
+    # __endswith 以什么结尾 区分大小写  __iendswith 以什么结尾 不区分大小写
+    articles = Article.objects.filter(title__endswith='hello')
+    print(articles.query)
+    print(articles)
+    return HttpResponse('success')
+
+
+def index6(request):
+    # start_time = make_aware(datetime(year=2020, month=12, day=13, hour=23, minute=4, second=10))
+    # end_time = make_aware(datetime(year=2020, month=12, day=13, hour=23, minute=30, second=10))
+    # articles = Article.objects.filter(create_time__range=(start_time,end_time))
+    # print(articles.query)
+    # print(articles)
+    """
+    range 可以指定一个时间段 并且时间应该标记为'aware'时间，不然django会报警告
+    需要使用make_aware()来避免这种警告
+    """
+    return HttpResponse("success")
+
+
+def index7(request):
+    """时间匹配"""
+    # articles = Article.objects.filter(create_time__date=datetime(year=2020, month=12, day=13))
+    # articles = Article.objects.filter(create_time__year=2020)
+    # articles = Article.objects.filter(create_time__day=13)
+    # 根据星期来查找 1表示星期日 7表示星期六 2-6表示星期一到星期五
+    # articles = Article.objects.filter(create_time__week_day=1)
+    start_time = time(hour=23, minute=12, second=56)
+    end_time = time(hour=23, minute=12, second=57)
+    # 根据时分秒查找 一般根据区间来查找
+    articles = Article.objects.filter(create_time__time__range=(start_time, end_time))
+    print(articles.query)
+    print(articles)
+    return HttpResponse("success")
+
+
+def index8(request):
+    # 判断某个字段是否为null
+    # articles = Article.objects.filter(create_time__isnull=True)
+    # articles = Article.objects.filter(title__regex=r"^hello")  # 区分大小写
+    articles = Article.objects.filter(title__iregex=r"^hello")  # 不区分大小写
+    print(articles.query)
+    print(articles)
+    return HttpResponse("success")
