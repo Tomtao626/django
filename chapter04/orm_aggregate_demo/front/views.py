@@ -67,7 +67,17 @@ def index5(request):
     # result = BookOrder.objects.aggregate(total=Sum('price'))
     # print(result)
     # print(connection.queries)
-    books = Book.objects.annotate(total=Sum("bookorder__price"))
+    # 每一本图书的销售总额
+    # books = Book.objects.annotate(total=Sum("bookorder__price"))
+    # for book in books:
+    #     print(f"{book.name}/{book.total}")
+    # print(connection.queries)
+    # 2020年度销售总额
+    # result = BookOrder.objects.filter(create_time__year=2020).aggregate(total=Sum('price'))
+    # print(result)
+    # print(connection.queries)
+    # 求每一本图书在2020年度的销售总额
+    books = Book.objects.filter(bookorder__create_time__year=2020).annotate(total=Sum("bookorder__price"))
     for book in books:
         print(f"{book.name}/{book.total}")
     print(connection.queries)
