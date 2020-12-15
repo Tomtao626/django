@@ -1,4 +1,4 @@
-"""orm_aggregate_demo URL Configuration
+"""orm_queryset_demo URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -18,11 +18,5 @@ from django.urls import path
 from front import views
 
 urlpatterns = [
-    path('1/', views.index),
-    path('2/', views.index2),
-    path('3/', views.index3),
-    path('4/', views.index4),
-    path('5/', views.index5),
-    path('6/', views.index6),
-    path('7/', views.index7)
+    path('', views.index3),
 ]

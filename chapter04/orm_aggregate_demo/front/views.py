@@ -1,5 +1,5 @@
 from django.db import connection
-from django.db.models import Avg, Count, Max, Min, Sum
+from django.db.models import Avg, Count, Max, Min, Sum, F, Q
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -80,5 +80,31 @@ def index5(request):
     books = Book.objects.filter(bookorder__create_time__year=2020).annotate(total=Sum("bookorder__price"))
     for book in books:
         print(f"{book.name}/{book.total}")
+    print(connection.queries)
+    return HttpResponse("successfully")
+
+
+def index6(request):
+    # 给每一本图书的售价增加10元
+    # Book.objects.update(price=F("price")+10)
+    # print(connection.queries)
+    # 查询用户名和邮箱相等的数据
+    authors = Author.objects.filter(name=F("email"))
+    for author in authors:
+        print(f"{author.name}/{author.email}")
+    print(connection.queries)
+    return HttpResponse("successfully")
+
+
+def index7(request):
+    # 获取价格大于107且评分在4.85以上的图书
+    # books = Book.objects.filter(price__gte=107, rating__gte=4.85)
+    # 获取价格大于107且评分在4.85以上的图书 Q表达式
+    # books = Book.objects.filter(Q(price__gte=107) & Q(rating__gte=4.85))
+    # 获取价格低于107，或者评分低于4.85的图书
+    # books = Book.objects.filter(Q(price__lte=107) | Q(rating__lte=4.85))
+    books = Book.objects.filter(Q(price__gte=107) & ~Q(name__icontains="传"))
+    for book in books:
+        print(book.name)
     print(connection.queries)
     return HttpResponse("successfully")
