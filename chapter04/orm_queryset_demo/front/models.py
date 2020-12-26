@@ -13,6 +13,17 @@ class Author(models.Model):
         db_table = 'author'
 
 
+# def publisher_default_data():
+#     return Publisher.objects.get_or_create(name='默认出版社')
+
+
+# class Publisher(models.Model):
+#     """出版社"""
+#     name = models.CharField(max_length=300, default=publisher_default_data())
+#
+#     class Meta:
+#         db_table = 'publisher'
+
 class Publisher(models.Model):
     """出版社"""
     name = models.CharField(max_length=300)
