@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'orm_queryset_demo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'orm_aggregate_demo',
+        'NAME': 'orm_queryset_demo',
         'USER': 'root',
         'PASSWORD': '1qazxsw2',
         'HOST': 'localhost',

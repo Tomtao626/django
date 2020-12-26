@@ -18,5 +18,5 @@ from django.urls import path
 from front import views
 
 urlpatterns = [
-    path('', views.index3),
+    path('', views.index6),
 ]

@@ -30,6 +30,9 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
 
+    class Meta:
+        db_table = 'book'
+
 
 class BookOrder(models.Model):
     """图书订单模型"""
