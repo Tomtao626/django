@@ -1,7 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.utils.decorators import method_decorator
 
 # Create your views here.
+from django.views import View
 from django.views.generic import ListView
 
 from .models import Article
@@ -50,8 +53,8 @@ class ArticleListView(ListView):
     # 如果需要对返回的数据进行的过滤 则需要使用get_queryset()方法 不然则默认返回全部数据
     # 即 return Article.objects.all()
     # def get_queryset(self):
-        # 查询id小于9的数据并返回
-        # return Article.objects.filter(id__lte=9)
+    # 查询id小于9的数据并返回
+    # return Article.objects.filter(id__lte=9)
 
     def get_pagination_data(self, paginator, page_obj, around_count=2):
         # 总页数
@@ -60,20 +63,44 @@ class ArticleListView(ListView):
         left_has_more = False
         right_has_more = False
         # 左边的页码
-        if current_page <= around_count+2:
+        if current_page <= around_count + 2:
             left_pages = range(1, current_page)
         else:
             left_has_more = True
-            left_pages = range(current_page-around_count, current_page)
+            left_pages = range(current_page - around_count, current_page)
         # 右边的页码
-        if current_page >= num_pages-around_count-1:
-            right_pages = range(current_page+1, num_pages+1)
+        if current_page >= num_pages - around_count - 1:
+            right_pages = range(current_page + 1, num_pages + 1)
         else:
             right_has_more = True
-            right_pages = range(current_page+1, current_page+around_count+1)
+            right_pages = range(current_page + 1, current_page + around_count + 1)
         return dict(left_pages=left_pages,
                     current_page=current_page,
                     right_pages=right_pages,
                     left_has_more=left_has_more,
                     right_has_more=right_has_more,
                     num_pages=num_pages)
+
+
+def login_required(func):
+    def wrapper(request, *args, **kwargs):
+        username = request.GET.get('username')
+        if username:
+            return func(request, *args, **kwargs)
+        else:
+            return redirect(reverse('front:login'))
+    return wrapper
+
+
+@method_decorator([login_required], name='dispatch')
+class ProfileView(View):
+    def get(self, request):
+        return HttpResponse("user profile")
+
+    # @method_decorator(login_required)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(ProfileView, self).dispatch(request, *args, **kwargs)
+
+
+def login(request):
+    return HttpResponse("login")
