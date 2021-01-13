@@ -27,6 +27,25 @@ class RegisterForm(forms.ModelForm):
 
 
 class LoginForm(forms.ModelForm):
+
+    def get_errors(self):
+        new_errors = list()
+        errors = self.errors.get_json_data()
+        for messages in errors.values():
+            for message_dict in messages:
+                for key,message in message_dict.items():
+                    if key == 'message':
+                        new_errors.append(message)
+        return new_errors
+
     class Meta:
         model = User
         fields = ['username', 'password']
+        error_messages = {
+            'username':{
+                'min_length': '用户名最小长度不能少于4位'
+            },
+            'password':{
+                'min_length':'密码最小长度不能小于6位'
+            }
+        }

@@ -16,6 +16,20 @@
                 <td></td>
                 <td><input type="submit" value="提交"></td>
             </tr>
+            <tr>
+                <td></td>
+                <td>
+                <ul>
+                    {% for msg in messages %}
+                        {% if msg.tags == 'info' %}
+                            <li style="color: red">
+                                {{ msg.tags }}---{{ msg }}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
     </form>

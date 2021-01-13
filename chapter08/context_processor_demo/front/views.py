@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import View
 from .forms import RegisterForm, LoginForm
+from django.contrib import messages
 
 
 # Create your views here.
@@ -15,6 +16,9 @@ def index(request):
     #     context.update(dict(front_user=user))
     # except Exception as e:
     #     print(e)
+    users = User.objects.all()
+    for user in users:
+        print(user)
     return render(request, 'index.html')
 
 
@@ -33,9 +37,14 @@ class LoginView(View):
                 return redirect(reverse('index'))
             else:
                 print("用户名或密码错误")
+                # messages.add_message(request, messages, INFO, '用户名或密码错误')
+                messages.info(request, '用户名或密码错误')
                 return redirect(reverse('login'))
         else:
-            print(form.errors.get_json_data())
+            # print(form.errors.get_json_data())
+            errors = form.get_errors()
+            for error in errors:
+                messages.info(request, error)
             return redirect(reverse('login'))
 
 
@@ -49,8 +58,11 @@ class RegisterView(View):
             form.save()
             return redirect(reverse('index'))
         else:
-            errors = form.errors.get_json_data()
-            print(errors)
+            # errors = form.errors.get_json_data()
+            # print(form.get_errors())
+            errors = form.get_errors()
+            for error in errors:
+                messages.info(request, error)
             return redirect(redirect('register'))
 
 
