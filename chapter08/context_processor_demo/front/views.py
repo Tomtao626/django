@@ -72,3 +72,7 @@ def blog(request):
 
 def video(request):
     return render(request, 'video.html')
+
+
+def logout(request):
+    pass

@@ -1,4 +1,4 @@
-"""context_processor_demo URL Configuration
+"""middleware_demo URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -16,15 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from front import views
-from django.conf.urls.static import static
-from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('my_list/', views.my_list, name='my_list'),
     path('login/', views.LoginView.as_view(), name='login'),
-    path('register/', views.RegisterView.as_view(), name='register'),
-    path('blog/', views.blog, name='blog'),
-    path('video/', views.video, name='video'),
-    path('logout/', views.logout, name='logout'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
