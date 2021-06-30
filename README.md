@@ -1,2 +1,2 @@
 # django
-study
+DJ
